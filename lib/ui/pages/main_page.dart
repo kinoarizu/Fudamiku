@@ -1,6 +1,10 @@
 part of 'pages.dart';
 
 class MainPage extends StatefulWidget {
+  final int bottomNavBarIndex;
+
+  MainPage({this.bottomNavBarIndex = 0});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -12,17 +16,18 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _loadUser();
+    _loadData();
 
-    bottomNavBarIndex = 0;
+    bottomNavBarIndex = widget.bottomNavBarIndex;
     pageController = PageController(initialPage: bottomNavBarIndex);
   }
 
-  void _loadUser() async {
+  void _loadData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var userID = preferences.getInt('id');
 
     context.bloc<UserBloc>().add(LoadUser(userID));
+    context.bloc<OrderBloc>().add(GetOrders(userID));
   }
 
   @override
@@ -50,7 +55,7 @@ class _MainPageState extends State<MainPage> {
                   },
                   children: <Widget>[
                     HomePage(tabBarIndex: 0),
-                    //* Order Page
+                    OrderPage(tabBarIndex: 0),
                     //* Profile Page
                   ],
                 ),

@@ -27,7 +27,7 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       yield OnAddressPage(event.auth);
     }
     else if (event is GoToMainPage) {
-      yield OnMainPage();
+      yield OnMainPage(bottomNavBarIndex: event.bottomNavBarIndex);
     }
     else if (event is GoToFoodDetailPage) {
       yield OnFoodDetailPage(event.food);
@@ -36,12 +36,10 @@ class PageBloc extends Bloc<PageEvent, PageState> {
       yield OnCheckoutPage(event.food);
     }
     else if (event is GoToSuccessPage) {
-      yield OnSuccessPage(
-        event.title, 
-        event.subtitle,
-        event.illustrationImage, 
-        event.isOrder,
-      );
+      yield OnSuccessPage(event.title, event.subtitle, event.illustrationImage, event.isOrder);
+    }
+    else if (event is GoToOrderDetailPage) {
+      yield OnOrderDetailPage(event.order);
     }
   }
 }

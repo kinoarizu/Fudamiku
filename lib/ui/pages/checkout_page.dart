@@ -10,6 +10,20 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
+  bool isOrdering = false;
+
+  void pushOrderNotification() async {
+    var status = await OneSignal.shared.getPermissionSubscriptionState();
+
+    var playerId = status.subscriptionStatus.userId;
+
+    await OneSignal.shared.postNotification(OSCreateNotification(
+      playerIds: [playerId],
+      content: "Please wait our delivery service.",
+      heading: "Thank You For Ordering Food",
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     int foodPrice = widget.food.price;
@@ -39,8 +53,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           Container(
                             width: deviceWidth(context),
                             color: whiteColor,
-                            padding: EdgeInsets.fromLTRB(defaultMargin, 30,
-                                defaultMargin, defaultMargin),
+                            padding: EdgeInsets.fromLTRB(defaultMargin, 30, defaultMargin, defaultMargin),
                             child: Row(
                               children: <Widget>[
                                 Container(
@@ -415,12 +428,42 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           SizedBox(
                             height: defaultMargin,
                           ),
-                          BlocBuilder<CounterCubit, int>(
+                          (isOrdering) ? SpinKitFadingCircle(color: mainColor, size: 45) : BlocBuilder<CounterCubit, int>(
                             builder: (_, count) => ButtonWidget(
                               "Checkout Now",
                               width: deviceWidth(context) - 2 * defaultMargin,
                               color: mainColor,
-                              onPressed: () {},
+                              onPressed: () async {
+                                setState(() {
+                                  isOrdering = true;
+                                });
+
+                                Order order = Order(
+                                  foodID: widget.food.id,
+                                  quantity: count,
+                                  status: "Delivered",
+                                );
+
+                                Transaction transaction = Transaction(
+                                  deliveryService: driver,
+                                  tax: (foodPrice * count * 0.1).toInt(),
+                                  totalPrice: ((foodPrice * count) + driver + (foodPrice * count * 0.1)).toInt(),
+                                );
+
+                                return Timer(Duration(seconds: 2), () {
+                                  pushOrderNotification();
+                                  context.bloc<OrderBloc>().add(SaveOrder(order, transaction));
+                                  context.bloc<CounterCubit>().setOne();
+                                  context.bloc<PageBloc>().add(
+                                    GoToSuccessPage(
+                                      title: "You’ve Made Order",
+                                      subtitle: "Just stay at home while we are\npreparing your best foods",
+                                      illustrationImage: "assets/images/order_confirmed.png",
+                                      isOrder: true,
+                                    ),
+                                  );
+                                });
+                              },
                             ),
                           ),
                           SizedBox(

@@ -33,8 +33,12 @@ class OnAddressPage extends PageState {
 }
 
 class OnMainPage extends PageState {
+  final bottomNavBarIndex;
+
+  OnMainPage({this.bottomNavBarIndex = 0});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [bottomNavBarIndex];
 }
 
 class OnFoodDetailPage extends PageState {
@@ -65,4 +69,13 @@ class OnSuccessPage extends PageState {
   
   @override
   List<Object> get props => [title, subtitle, illustrationImage, isOrder];
+}
+
+class OnOrderDetailPage extends PageState {
+  final Order order;
+
+  OnOrderDetailPage(this.order);
+
+  @override
+  List<Object> get props => [order];
 }

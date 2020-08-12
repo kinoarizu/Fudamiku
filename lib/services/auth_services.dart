@@ -88,5 +88,6 @@ class AuthServices {
   static Future<void> signOut() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.remove('token');
+    preferences.remove('id');
   }
 }

@@ -23,7 +23,7 @@ class Order extends Equatable {
     foodID: json['food_id'],
     quantity: json['quantity'],
     status: json['status'],
-    food: json['food'],
+    food: Food.fromJson(json['food']),
   );
 
   @override

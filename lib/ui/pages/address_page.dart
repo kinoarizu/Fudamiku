@@ -152,7 +152,7 @@ class _AddressPageState extends State<AddressPage> {
                             SizedBox(
                               height: 24,
                             ),
-                            (isSigningUp) ? SpinKitFadingCircle(color: mainColor, size: 45,) : ButtonWidget(
+                            (isSigningUp) ? SpinKitFadingCircle(color: mainColor, size: 45) : ButtonWidget(
                               "Sign Up Now",
                               width: MediaQuery.of(context).size.width - 2 * defaultMargin,
                               color: mainColor,

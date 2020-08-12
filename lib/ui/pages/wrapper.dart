@@ -19,7 +19,7 @@ class Wrapper extends StatelessWidget {
       ? AddressPage(pageState.auth)
 
       : (pageState is OnMainPage)
-      ? MainPage()
+      ? MainPage(bottomNavBarIndex: pageState.bottomNavBarIndex,)
 
       : (pageState is OnFoodDetailPage)
       ? FoodDetailPage(pageState.food)
@@ -29,6 +29,9 @@ class Wrapper extends StatelessWidget {
 
       : (pageState is OnSuccessPage)
       ? SuccessPage(pageState.title, pageState.subtitle, pageState.illustrationImage, pageState.isOrder)
+
+      : (pageState is OnOrderDetailPage)
+      ? OrderDetailPage(pageState.order)
 
       : Container()
     );

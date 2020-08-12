@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +15,7 @@ import 'package:fudamiku/services/services.dart';
 import 'package:fudamiku/shared/shared.dart';
 import 'package:fudamiku/ui/widgets/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -27,3 +29,5 @@ part 'home_page.dart';
 part 'food_detail_page.dart';
 part 'checkout_page.dart';
 part 'success_page.dart';
+part 'order_page.dart';
+part 'order_detail_page.dart';

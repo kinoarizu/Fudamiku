@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:fudamiku/bloc/bloc.dart';
+import 'package:fudamiku/shared/shared.dart';
 import 'package:fudamiku/ui/pages/pages.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  OneSignal.shared.init(oneSignalAppID, iOSSettings: null);
+  OneSignal.shared.setInFocusDisplayType(OSNotificationDisplayType.notification);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -15,6 +21,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => UserBloc()),
         BlocProvider(create: (_) => FoodBloc()..add(FetchFoods())),
         BlocProvider(create: (_) => CounterCubit()),
+        BlocProvider(create: (_) => OrderBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

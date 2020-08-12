@@ -33,8 +33,12 @@ class GoToAddressPage extends PageEvent {
 }
 
 class GoToMainPage extends PageEvent {
+  final bottomNavBarIndex;
+
+  GoToMainPage({this.bottomNavBarIndex = 0});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [bottomNavBarIndex];
 }
 
 class GoToFoodDetailPage extends PageEvent {
@@ -65,4 +69,13 @@ class GoToSuccessPage extends PageEvent {
   
   @override
   List<Object> get props => [title, subtitle, illustrationImage, isOrder];
+}
+
+class GoToOrderDetailPage extends PageEvent {
+  final Order order;
+
+  GoToOrderDetailPage(this.order);
+
+  @override
+  List<Object> get props => [order];
 }

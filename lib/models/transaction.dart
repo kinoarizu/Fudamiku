@@ -26,7 +26,7 @@ class Transaction extends Equatable {
     deliveryService: json['delivery_service'],
     tax: json['tax'],
     totalPrice: json['total_price'],
-    order: json['order'],
+    order: Order.fromJson(json['order']),
   );
 
   @override

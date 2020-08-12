@@ -41,11 +41,22 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       width: 50,
                       height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(userState.user.photo),
+                      child: CachedNetworkImage(
+                        imageUrl: userState.user.photo,
+                        placeholder: (context, url) => CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(
+                          Icons.verified_user,
+                          color: mainColor,
+                          size: 45,
+                        ),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
                     ),

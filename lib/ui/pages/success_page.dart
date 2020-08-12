@@ -59,13 +59,16 @@ class SuccessPage extends StatelessWidget {
                   context.bloc<PageBloc>().add(GoToMainPage());
                 },
               ),
+              SizedBox(
+                height: 12,
+              ),
               (isOrder) ? ButtonWidget(
                 "View My Order",
                 color: greyColor,
                 textColor: whiteColor,
                 width: 200,
                 onPressed: () {
-                  context.bloc<PageBloc>().add(GoToMainPage());
+                  context.bloc<PageBloc>().add(GoToMainPage(bottomNavBarIndex: 1));
                 },
               ) : SizedBox(),
             ],
