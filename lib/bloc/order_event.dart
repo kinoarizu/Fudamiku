@@ -22,3 +22,12 @@ class SaveOrder extends OrderEvent {
   @override
   List<Object> get props => [order, transaction];
 }
+
+class CancelOrder extends OrderEvent {
+  final Order order;
+
+  CancelOrder(this.order);
+
+  @override
+  List<Object> get props => [order];
+}

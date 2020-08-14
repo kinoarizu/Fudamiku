@@ -12,18 +12,6 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   bool isOrdering = false;
 
-  void pushOrderNotification() async {
-    var status = await OneSignal.shared.getPermissionSubscriptionState();
-
-    var playerId = status.subscriptionStatus.userId;
-
-    await OneSignal.shared.postNotification(OSCreateNotification(
-      playerIds: [playerId],
-      content: "Please wait our delivery service.",
-      heading: "Thank You For Ordering Food",
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
     int foodPrice = widget.food.price;
@@ -74,7 +62,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   width: 26,
                                 ),
                                 HeaderWidget(
-                                  title: "Payment",
+                                  title: "Checkout",
                                   subtitle: "You deserve better meal",
                                 ),
                               ],
@@ -451,9 +439,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 );
 
                                 return Timer(Duration(seconds: 2), () {
-                                  pushOrderNotification();
+                                  pushOrderNotification(
+                                    heading: "Thank You For Ordering Food",
+                                    content: "Please wait our delivery service.",
+                                  );
                                   context.bloc<OrderBloc>().add(SaveOrder(order, transaction));
                                   context.bloc<CounterCubit>().setOne();
+                                  context.bloc<NotificationCubit>().showBadge();
                                   context.bloc<PageBloc>().add(
                                     GoToSuccessPage(
                                       title: "You’ve Made Order",

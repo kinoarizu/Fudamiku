@@ -19,9 +19,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => PageBloc()),
         BlocProvider(create: (_) => UserBloc()),
-        BlocProvider(create: (_) => FoodBloc()..add(FetchFoods())),
-        BlocProvider(create: (_) => CounterCubit()),
         BlocProvider(create: (_) => OrderBloc()),
+        BlocProvider(create: (_) => CounterCubit()),
+        BlocProvider(create: (_) => NotificationCubit()),
+        BlocProvider(create: (_) => FoodBloc()..add(FetchFoods())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

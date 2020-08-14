@@ -15,7 +15,6 @@ import 'package:fudamiku/services/services.dart';
 import 'package:fudamiku/shared/shared.dart';
 import 'package:fudamiku/ui/widgets/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -31,3 +30,4 @@ part 'checkout_page.dart';
 part 'success_page.dart';
 part 'order_page.dart';
 part 'order_detail_page.dart';
+part 'profile_page.dart';

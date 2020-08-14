@@ -27,5 +27,12 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
       yield OrderState(orders);
     }
+    else if (event is CancelOrder) {
+      await OrderServices.cancelOrder(event.order);
+
+      List<Order> orders = state.orders;
+      
+      yield OrderState(orders);
+    }
   }
 }

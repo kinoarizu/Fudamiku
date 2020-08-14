@@ -233,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                     List<Food> foods = foodState.foods.sublist(startSub, endSub);
 
                     return Container(
-                      height: 60 * double.parse(foods.length.toString()) + 120,
+                      height: (60 * double.parse((foods.length).toString())) + (2 * 8 * double.parse((foods.length).toString())) + 68,
                       margin: EdgeInsets.only(top: 60),
                       child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),

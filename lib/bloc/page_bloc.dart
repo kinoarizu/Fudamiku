@@ -41,5 +41,8 @@ class PageBloc extends Bloc<PageEvent, PageState> {
     else if (event is GoToOrderDetailPage) {
       yield OnOrderDetailPage(event.order);
     }
+    else if (event is GoToProfilePage) {
+      yield OnProfilePage();
+    }
   }
 }

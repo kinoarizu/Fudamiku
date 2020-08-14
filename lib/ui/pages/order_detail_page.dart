@@ -54,7 +54,7 @@ class OrderDetailPage extends StatelessWidget {
                                   width: 26,
                                 ),
                                 HeaderWidget(
-                                  title: "Payment",
+                                  title: "History",
                                   subtitle: "You deserve better meal",
                                 ),
                               ],
@@ -424,16 +424,83 @@ class OrderDetailPage extends StatelessWidget {
                           SizedBox(
                             height: defaultMargin,
                           ),
-                          ButtonWidget(
-                            "Cancel My Order",
-                            width: deviceWidth(context) - 2 * defaultMargin,
-                            color: redColor,
-                            textColor: whiteColor,
-                            onPressed: () {},
+                          Container(
+                            width: deviceWidth(context),
+                            color: whiteColor,
+                            padding: EdgeInsets.only(
+                              top: 16,
+                              left: defaultMargin,
+                              right: defaultMargin,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Order Status:",
+                                  style: blackFont.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 80,
+                                      child: Text(
+                                        "#${order.uuid.toUpperCase()}",
+                                        maxLines: 1,
+                                        style: greyFont.copyWith(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      order.status,
+                                      style: blackFont.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: (order.status == "Cancelled") ? redColor : greenColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: defaultMargin,
                           ),
+                          (order.status != "Cancelled") ? ButtonWidget(
+                            "Cancel My Order",
+                            width: deviceWidth(context) - 2 * defaultMargin,
+                            color: redColor,
+                            textColor: whiteColor,
+                            onPressed: () {
+                              Order order = Order(
+                                id: this.order.id,
+                                status: "Cancelled",
+                              );
+
+                              pushOrderNotification(
+                                heading: "You Have Cancelled Order",
+                                content: "Thanks for using our service",
+                              );
+
+                              context.bloc<OrderBloc>().add(CancelOrder(order));
+                              context.bloc<PageBloc>().add(GoToMainPage(bottomNavBarIndex: 1));
+                            },
+                          ) : Container(),
+                          (order.status != "Cancelled") ? SizedBox(
+                            height: defaultMargin,
+                          ) : Container(),
                         ],
                       ),
                     ],

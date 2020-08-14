@@ -79,3 +79,8 @@ class OnOrderDetailPage extends PageState {
   @override
   List<Object> get props => [order];
 }
+
+class OnProfilePage extends PageState {
+  @override
+  List<Object> get props => [];
+}

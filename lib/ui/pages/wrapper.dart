@@ -33,6 +33,9 @@ class Wrapper extends StatelessWidget {
       : (pageState is OnOrderDetailPage)
       ? OrderDetailPage(pageState.order)
 
+      : (pageState is OnProfilePage)
+      ? ProfilePage()
+
       : Container()
     );
   }

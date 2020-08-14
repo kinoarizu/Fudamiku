@@ -76,11 +76,26 @@ class OrderRow extends StatelessWidget {
               flex: 1,
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  ""
+                  order.orderTime,
+                  style: greyFont.copyWith(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
+                (order.status == "Cancelled") ? SizedBox(
+                  height: 2,
+                ) : SizedBox(),
+                (order.status == "Cancelled") ? Text(
+                  "Cancelled",
+                  style: redFont.copyWith(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ) : SizedBox(),
               ],
             ),
           ],

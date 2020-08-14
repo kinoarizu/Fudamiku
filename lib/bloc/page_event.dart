@@ -79,3 +79,8 @@ class GoToOrderDetailPage extends PageEvent {
   @override
   List<Object> get props => [order];
 }
+
+class GoToProfilePage extends PageEvent {
+  @override
+  List<Object> get props => [];
+}

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:fudamiku/extensions/extensions.dart';
 
 part 'auth.dart';
 part 'user.dart';

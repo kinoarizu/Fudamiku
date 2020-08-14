@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
                   children: <Widget>[
                     HomePage(tabBarIndex: 0),
                     OrderPage(tabBarIndex: 0),
-                    //* Profile Page
+                    ProfilePage(),
                   ],
                 ),
                 createCustomBottomNavbar(),
@@ -84,6 +84,9 @@ class _MainPageState extends State<MainPage> {
             setState(() {
               bottomNavBarIndex = index;
               pageController.jumpToPage(index);
+              if (bottomNavBarIndex == 2) {
+                context.bloc<NotificationCubit>().hideBadge();
+              }
             });
           },
           items: [
@@ -106,13 +109,37 @@ class _MainPageState extends State<MainPage> {
                 height: 0,
                 child: Text(""),
               ),
-              icon: Container(
-                height: 32,
-                child: Image.asset(
-                  (bottomNavBarIndex == 1)
-                  ? "assets/images/ic_order.png"
-                  : "assets/images/ic_order_normal.png",
-                ),
+              icon: Stack(
+                children: <Widget>[
+                  Container(
+                    height: 32,
+                    child: Image.asset(
+                      (bottomNavBarIndex == 1)
+                      ? "assets/images/ic_order.png"
+                      : "assets/images/ic_order_normal.png",
+                    ),
+                  ),
+                  BlocBuilder<NotificationCubit, bool>(
+                    builder: (_, notif) {
+                      if (notif) {
+                        return Positioned(
+                          top: 6,
+                          right: 7,
+                          child: Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFF5C00),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return SizedBox();
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
             BottomNavigationBarItem(

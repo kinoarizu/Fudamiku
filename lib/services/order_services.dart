@@ -46,4 +46,21 @@ class OrderServices {
       },
     );
   }
+
+  static Future<void> cancelOrder(Order order) async {
+    String orderID = order.id.toString();
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var token = preferences.getString('token');
+
+    await http.post(_orderURL + '/' + orderID + '?_method=PUT', 
+      body: jsonEncode({
+        'status': order.status,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+  }
 }
