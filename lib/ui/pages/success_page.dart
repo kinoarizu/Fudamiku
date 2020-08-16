@@ -52,11 +52,11 @@ class SuccessPage extends StatelessWidget {
                 height: 30,
               ),
               ButtonWidget(
-                (!isOrder) ? "Find Foods" : "Order Other Foods",
+                (!isOrder) ? "Swipe Right" : "Order Other Foods",
                 color: mainColor,
                 width: 200,
                 onPressed: () {
-                  context.bloc<PageBloc>().add(GoToMainPage());
+                  context.bloc<PageBloc>().add(GoToMainPage(bottomNavBarIndex: 0));
                 },
               ),
               (isOrder) ? SizedBox(

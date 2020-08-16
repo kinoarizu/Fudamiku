@@ -84,3 +84,21 @@ class GoToProfilePage extends PageEvent {
   @override
   List<Object> get props => [];
 }
+
+class GoToEditProfilePage extends PageEvent{
+  final User user;
+
+  GoToEditProfilePage(this.user);
+
+  @override
+  List<Object> get props => [user];
+}
+
+class GoToEditAddressPage extends PageEvent{
+  final User user;
+
+  GoToEditAddressPage(this.user);
+
+  @override
+  List<Object> get props => [user];
+}

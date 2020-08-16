@@ -41,7 +41,14 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       width: 50,
                       height: 50,
-                      child: CachedNetworkImage(
+                      decoration: (userState.user.photo == siteURL) ? BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/images/avatar.png'),
+                        ),
+                      ) : BoxDecoration(),
+                      child: (userState.user.photo != siteURL) ? CachedNetworkImage(
                         imageUrl: userState.user.photo,
                         placeholder: (context, url) => CircularProgressIndicator(),
                         errorWidget: (context, url, error) => Icon(
@@ -58,11 +65,10 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                      ),
+                      ) : SizedBox(),
                     ),
-                    onTap: () async {
-                      AuthServices.signOut();
-                      context.bloc<PageBloc>().add(GoToSplashPage());
+                    onTap: () {
+                      context.bloc<PageBloc>().add(GoToMainPage(bottomNavBarIndex: 2));
                     },
                   );
                 } else {

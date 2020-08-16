@@ -31,13 +31,31 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       width: 90,
                       height: 90,
-                      decoration: BoxDecoration(
+                      decoration: ((userState as UserLoaded).user.photo == siteURL) ? BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: NetworkImage((userState as UserLoaded).user.photo),
                           fit: BoxFit.cover,
+                          image: AssetImage('assets/images/avatar.png'),
                         ),
-                      ),
+                      ) : BoxDecoration(),
+                      child: ((userState as UserLoaded).user.photo != siteURL) ? CachedNetworkImage(
+                        imageUrl: (userState as UserLoaded).user.photo,
+                        placeholder: (context, url) => CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(
+                          Icons.verified_user,
+                          color: mainColor,
+                          size: 45,
+                        ),
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ) : SizedBox(),
                     ),
                   ),
                   SizedBox(
@@ -69,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Container(
             width: deviceWidth(context),
-            height: 208,
+            height: 232,
             color: whiteColor,
             child: Stack(
               children: <Widget>[
@@ -132,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Column(
                           children: <Widget>[
                             Text(
-                              "Food Market",
+                              "Fudamiku",
                               style: blackFont.copyWith(
                                 fontSize: 14,
                                 fontWeight: (tabBarIndex == 1) ? FontWeight.w500 : FontWeight.w400,
@@ -162,208 +180,241 @@ class _ProfilePageState extends State<ProfilePage> {
                     left: defaultMargin,
                     right: defaultMargin,
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      (tabBarIndex == 0) ? Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 8,
-                          ),
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Edit Profile",
-                                  style: blackFont.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                Icon(
-                                  CupertinoIcons.forward,
-                                  color: greyColor,
-                                  size: 24,
-                                ),
-                              ],
+                  child: BlocBuilder<UserBloc, UserState>(
+                    builder: (_, userState) => Column(
+                      children: <Widget>[
+                        (tabBarIndex == 0) ? Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 8,
                             ),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Home Address",
-                                  style: blackFont.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {
+                                context.bloc<PageBloc>().add(GoToEditProfilePage((userState as UserLoaded).user));
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Edit Profile",
+                                    style: blackFont.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  CupertinoIcons.forward,
-                                  color: greyColor,
-                                  size: 24,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Security",
-                                  style: blackFont.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: greyColor,
+                                    size: 24,
                                   ),
-                                ),
-                                Icon(
-                                  CupertinoIcons.forward,
-                                  color: greyColor,
-                                  size: 24,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Payments",
-                                  style: blackFont.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                            SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {
+                                context.bloc<PageBloc>().add(GoToEditAddressPage((userState as UserLoaded).user));
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Home Address",
+                                    style: blackFont.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  CupertinoIcons.forward,
-                                  color: greyColor,
-                                  size: 24,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ) : Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 8,
-                          ),
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Rate App",
-                                  style: blackFont.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: greyColor,
+                                    size: 24,
                                   ),
-                                ),
-                                Icon(
-                                  CupertinoIcons.forward,
-                                  color: greyColor,
-                                  size: 24,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Help Center",
-                                  style: blackFont.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                            SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Security",
+                                    style: blackFont.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  CupertinoIcons.forward,
-                                  color: greyColor,
-                                  size: 24,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Privacy & Policy",
-                                  style: blackFont.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: greyColor,
+                                    size: 24,
                                   ),
-                                ),
-                                Icon(
-                                  CupertinoIcons.forward,
-                                  color: greyColor,
-                                  size: 24,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  "Terms & Conditions",
-                                  style: blackFont.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                            SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Payments",
+                                    style: blackFont.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                                Icon(
-                                  CupertinoIcons.forward,
-                                  color: greyColor,
-                                  size: 24,
-                                ),
-                              ],
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: greyColor,
+                                    size: 24,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {
+                                AuthServices.signOut();
+                                context.bloc<PageBloc>().add(GoToSignInPage());
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Sign Out",
+                                    style: redFont.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: Colors.transparent,
+                                    size: 24,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ) : Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Rate App",
+                                    style: blackFont.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: greyColor,
+                                    size: 24,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Help Center",
+                                    style: blackFont.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: greyColor,
+                                    size: 24,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Privacy & Policy",
+                                    style: blackFont.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: greyColor,
+                                    size: 24,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "Terms & Conditions",
+                                    style: blackFont.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Icon(
+                                    CupertinoIcons.forward,
+                                    color: greyColor,
+                                    size: 24,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

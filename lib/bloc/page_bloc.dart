@@ -44,5 +44,11 @@ class PageBloc extends Bloc<PageEvent, PageState> {
     else if (event is GoToProfilePage) {
       yield OnProfilePage();
     }
+    else if (event is GoToEditProfilePage) {
+      yield OnEditProfilePage(event.user);
+    }
+    else if (event is GoToEditAddressPage) {
+      yield OnEditAddressPage(event.user);
+    }
   }
 }

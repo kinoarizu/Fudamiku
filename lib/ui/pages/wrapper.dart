@@ -19,7 +19,7 @@ class Wrapper extends StatelessWidget {
       ? AddressPage(pageState.auth)
 
       : (pageState is OnMainPage)
-      ? MainPage(bottomNavBarIndex: pageState.bottomNavBarIndex,)
+      ? MainPage(bottomNavBarIndex: pageState.bottomNavBarIndex)
 
       : (pageState is OnFoodDetailPage)
       ? FoodDetailPage(pageState.food)
@@ -35,6 +35,12 @@ class Wrapper extends StatelessWidget {
 
       : (pageState is OnProfilePage)
       ? ProfilePage()
+
+      : (pageState is OnEditProfilePage)
+      ? EditProfilePage(pageState.user)
+
+      : (pageState is OnEditAddressPage)
+      ? EditAddressPage(pageState.user)
 
       : Container()
     );
