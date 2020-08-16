@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flushbar/flushbar.dart';
@@ -35,3 +36,6 @@ part 'order_detail_page.dart';
 part 'profile_page.dart';
 part 'edit_profile_page.dart';
 part 'edit_address_page.dart';
+part 'payment_method_page.dart';
+part 'credit_card_page.dart';
+part 'gopay_page.dart';

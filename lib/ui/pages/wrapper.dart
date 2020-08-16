@@ -42,6 +42,15 @@ class Wrapper extends StatelessWidget {
       : (pageState is OnEditAddressPage)
       ? EditAddressPage(pageState.user)
 
+      : (pageState is OnPaymentMethodPage)
+      ? PaymentMethodPage(pageState.order, pageState.transaction, pageState.food)
+
+      : (pageState is OnCreditCardPage)
+      ? CreditCardPage(pageState.order, pageState.transaction, pageState.food)
+
+      : (pageState is OnGopayPage)
+      ? GopayPage(pageState.order, pageState.transaction, pageState.food)
+
       : Container()
     );
   }

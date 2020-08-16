@@ -50,5 +50,14 @@ class PageBloc extends Bloc<PageEvent, PageState> {
     else if (event is GoToEditAddressPage) {
       yield OnEditAddressPage(event.user);
     }
+    else if (event is GoToPaymentMethodPage) {
+      yield OnPaymentMethodPage(event.order, event.transaction, event.food);
+    }
+    else if (event is GoToCreditCardPage) {
+      yield OnCreditCardPage(event.order, event.transaction, event.food);
+    }
+    else if (event is GoToGopayPage) {
+      yield OnGopayPage(event.order, event.transaction, event.food);
+    }
   }
 }

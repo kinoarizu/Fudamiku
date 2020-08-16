@@ -102,3 +102,36 @@ class GoToEditAddressPage extends PageEvent{
   @override
   List<Object> get props => [user];
 }
+
+class GoToPaymentMethodPage extends PageEvent {
+  final Order order;
+  final Transaction transaction;
+  final Food food;
+
+  GoToPaymentMethodPage(this.order, this.transaction, this.food);
+
+  @override
+  List<Object> get props => [order, transaction, food];
+}
+
+class GoToCreditCardPage extends PageEvent {
+  final Order order;
+  final Transaction transaction;
+  final Food food;
+
+  GoToCreditCardPage(this.order, this.transaction, this.food);
+
+  @override
+  List<Object> get props => [order, transaction, food];
+}
+
+class GoToGopayPage extends PageEvent {
+  final Order order;
+  final Transaction transaction;
+  final Food food;
+
+  GoToGopayPage(this.order, this.transaction, this.food);
+
+  @override
+  List<Object> get props => [order, transaction, food];
+}

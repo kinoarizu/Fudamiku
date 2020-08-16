@@ -425,7 +425,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 setState(() {
                                   isOrdering = true;
                                 });
-
+                                
                                 Order order = Order(
                                   foodID: widget.food.id,
                                   quantity: count,
@@ -438,23 +438,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   totalPrice: ((foodPrice * count) + driver + (foodPrice * count * 0.1)).toInt(),
                                 );
 
-                                return Timer(Duration(seconds: 2), () {
-                                  pushOrderNotification(
-                                    heading: "Thank You For Ordering Food",
-                                    content: "Please wait our delivery service.",
-                                  );
-                                  context.bloc<OrderBloc>().add(SaveOrder(order, transaction));
-                                  context.bloc<CounterCubit>().setOne();
-                                  context.bloc<NotificationCubit>().showBadge();
-                                  context.bloc<PageBloc>().add(
-                                    GoToSuccessPage(
-                                      title: "You’ve Made Order",
-                                      subtitle: "Just stay at home while we are\npreparing your best foods",
-                                      illustrationImage: "assets/images/order_confirmed.png",
-                                      isOrder: true,
-                                    ),
-                                  );
-                                });
+                                context.bloc<PageBloc>().add(GoToPaymentMethodPage(order, transaction, widget.food));
+
+                                // return Timer(Duration(seconds: 2), () {
+                                //   pushOrderNotification(
+                                //     heading: "Thank You For Ordering Food",
+                                //     content: "Please wait our delivery service.",
+                                //   );
+                                //   context.bloc<OrderBloc>().add(SaveOrder(order, transaction));
+                                //   context.bloc<CounterCubit>().setOne();
+                                //   context.bloc<NotificationCubit>().showBadge();
+                                //   context.bloc<PageBloc>().add(
+                                //     GoToSuccessPage(
+                                //       title: "You’ve Made Order",
+                                //       subtitle: "Just stay at home while we are\npreparing your best foods",
+                                //       illustrationImage: "assets/images/order_confirmed.png",
+                                //       isOrder: true,
+                                //     ),
+                                //   );
+                                // });
                               },
                             ),
                           ),

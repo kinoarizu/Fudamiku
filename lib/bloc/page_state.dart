@@ -102,3 +102,36 @@ class OnEditAddressPage extends PageState {
   @override
   List<Object> get props => [user];
 }
+
+class OnPaymentMethodPage extends PageState {
+  final Order order;
+  final Transaction transaction;
+  final Food food;
+
+  OnPaymentMethodPage(this.order, this.transaction, this.food);
+
+  @override
+  List<Object> get props => [order, transaction, food];
+}
+
+class OnCreditCardPage extends PageState {
+  final Order order;
+  final Transaction transaction;
+  final Food food;
+
+  OnCreditCardPage(this.order, this.transaction, this.food);
+
+  @override
+  List<Object> get props => [order, transaction, food];
+}
+
+class OnGopayPage extends PageState {
+  final Order order;
+  final Transaction transaction;
+  final Food food;
+
+  OnGopayPage(this.order, this.transaction, this.food);
+
+  @override
+  List<Object> get props => [order, transaction, food];
+}

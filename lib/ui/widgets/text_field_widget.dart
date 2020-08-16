@@ -7,6 +7,7 @@ class TextFieldWidget extends StatelessWidget {
   final Function onChanged;
   final bool obscureText;
   final TextInputType keyboardType;
+  final List<TextInputFormatter> inputFormatters;
 
   TextFieldWidget({
     this.labelText,
@@ -15,6 +16,7 @@ class TextFieldWidget extends StatelessWidget {
     this.onChanged,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
+    this.inputFormatters,
   });
 
   @override
@@ -22,13 +24,13 @@ class TextFieldWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        (labelText != null) ? Text(
           labelText,
           style: blackFont.copyWith(
             fontSize: 16,
             fontWeight: FontWeight.w400,
           ),
-        ),
+        ) : SizedBox(),
         SizedBox(
           height: 6,
         ),
@@ -53,6 +55,7 @@ class TextFieldWidget extends StatelessWidget {
             hintText: hintText,
             hintStyle: greyFont,
           ),
+          inputFormatters: inputFormatters,
           onChanged: onChanged,
         ),
       ],
