@@ -15,7 +15,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
   TextEditingController houseController = TextEditingController();
   String selectedCity;
   bool isDataEdited;
-  bool isUpdating;
+  bool isUpdating = false;
 
   @override
   void initState() { 
@@ -166,11 +166,41 @@ class _EditAddressPageState extends State<EditAddressPage> {
                                 SizedBox(
                                   height: 24,
                                 ),
-                                ButtonWidget(
+                                (isUpdating) ? SpinKitFadingCircle(size: 50, color: mainColor) : ButtonWidget(
                                   "Change Address",
                                   width: MediaQuery.of(context).size.width - 2 * defaultMargin,
                                   color: mainColor,
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    if (!(phoneController.text.trim() != "" && addressController.text.trim() != "" && houseController.text.trim() != "" && selectedCity != null)) {
+                                      Flushbar(
+                                        duration: Duration(milliseconds: 1500),
+                                        flushbarPosition: FlushbarPosition.TOP,
+                                        backgroundColor: redColor,
+                                        message: "All field must be filled",
+                                      )..show(context);
+                                    } else {
+                                      setState(() {
+                                        isUpdating = true;
+                                      });
+
+                                      User user = User(
+                                        name: widget.user.name,
+                                        phoneNumber: phoneController.text,
+                                        address: addressController.text,
+                                        houseNumber: houseController.text,
+                                        city: selectedCity,
+                                      );
+
+                                      await UserServices.updateUser(user);
+                                      
+                                      SharedPreferences preferences = await SharedPreferences.getInstance();
+                                      var userID = preferences.getInt('id');
+
+                                      context.bloc<UserBloc>().add(LoadUser(userID));
+
+                                      context.bloc<PageBloc>().add(GoToMainPage(bottomNavBarIndex: 2));
+                                    }
+                                  },
                                 ),
                                 SizedBox(
                                   height: 85,

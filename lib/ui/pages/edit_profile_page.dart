@@ -14,7 +14,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String profilePath;
   bool isDataEdited;
   File profileImageFile;
-  bool isUpdating;
+  bool isUpdating = false;
 
   @override
   void initState() {
@@ -101,11 +101,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         child: Container(
                                           width: 90,
                                           height: 90,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
                                           child: (profileImageFile != null) 
-                                          ? Image.file(
-                                              profileImageFile,
-                                              fit: BoxFit.cover,
-                                            ) 
+                                          ? ClipRRect(
+                                              borderRadius: BorderRadius.circular(100),
+                                              child: Image.file(
+                                                profileImageFile,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            )
                                           : ((profilePath == siteURL) || (profilePath == "")) 
                                           ? Image.asset(
                                               'assets/images/photo.png',
@@ -195,13 +201,44 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 84,
+                                  height: 94,
                                 ),
-                                ButtonWidget(
+                                (isUpdating) ? SpinKitFadingCircle(size: 50, color: mainColor) : ButtonWidget(
                                   "Change Profile",
                                   width: MediaQuery.of(context).size.width - 2 * defaultMargin,
                                   color: mainColor,
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    if (fullNameController.text == "") {
+                                      Flushbar(
+                                        duration: Duration(milliseconds: 1500),
+                                        flushbarPosition: FlushbarPosition.TOP,
+                                        backgroundColor: redColor,
+                                        message: "You must fill your name",
+                                      )..show(context);
+                                    } else {
+                                      setState(() {
+                                        isUpdating = true;
+                                      });
+
+                                      User user = User(
+                                        name: fullNameController.text,
+                                        phoneNumber: widget.user.phoneNumber,
+                                        address: widget.user.address,
+                                        houseNumber: widget.user.houseNumber,
+                                        city: widget.user.city,
+                                        newPhoto: (profileImageFile != null) ? profileImageFile : null,
+                                      );
+
+                                      await UserServices.updateUser(user);
+                                      
+                                      SharedPreferences preferences = await SharedPreferences.getInstance();
+                                      var userID = preferences.getInt('id');
+
+                                      context.bloc<UserBloc>().add(LoadUser(userID));
+
+                                      context.bloc<PageBloc>().add(GoToMainPage(bottomNavBarIndex: 2));
+                                    }
+                                  },
                                 ),
                                 SizedBox(
                                   height: 45,

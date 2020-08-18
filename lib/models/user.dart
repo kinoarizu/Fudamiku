@@ -9,6 +9,7 @@ class User extends Equatable {
   final String houseNumber;
   final String city;
   final String photo;
+  final File newPhoto;
 
   User({
     this.id,
@@ -19,6 +20,7 @@ class User extends Equatable {
     this.houseNumber,
     this.city,
     this.photo,
+    this.newPhoto,
   });
 
   @override
@@ -31,6 +33,7 @@ class User extends Equatable {
     houseNumber,
     city,
     photo,
+    newPhoto,
   ];
 
   factory User.fromJson(Map<String, dynamic> json) => User(

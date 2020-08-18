@@ -16,6 +16,28 @@ class _CreditCardPageState extends State<CreditCardPage> {
   TextEditingController expireNumberController = TextEditingController();
   TextEditingController cvvNumberController = TextEditingController();
 
+  bool isPaying = false;
+
+  Timer runTransaction() {
+    return Timer(Duration(seconds: 2), () {
+      pushOrderNotification(
+        heading: "Thank You For Ordering Food",
+        content: "Please wait our delivery service.",
+      );
+      context.bloc<OrderBloc>().add(SaveOrder(widget.order, widget.transaction));
+      context.bloc<CounterCubit>().setOne();
+      context.bloc<NotificationCubit>().showBadge();
+      context.bloc<PageBloc>().add(
+        GoToSuccessPage(
+          title: "You’ve Made Order",
+          subtitle: "Just stay at home while we are\npreparing your best foods",
+          illustrationImage: "assets/images/order_confirmed.png",
+          isOrder: true,
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -212,11 +234,53 @@ class _CreditCardPageState extends State<CreditCardPage> {
                                     SizedBox(
                                       height: 163,
                                     ),
-                                    ButtonWidget(
+                                    (isPaying) ? SpinKitFadingCircle(size: 50, color: mainColor) : ButtonWidget(
                                       "Pay Now",
                                       width: MediaQuery.of(context).size.width - 2 * defaultMargin,
                                       color: mainColor,
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        if ((cardNumberController.text == "") || (expireNumberController.text == "") || (cvvNumberController.text == "")) {
+                                          Flushbar(
+                                            duration: Duration(milliseconds: 1500),
+                                            flushbarPosition: FlushbarPosition.TOP,
+                                            backgroundColor: redColor,
+                                            message: "Please fill your credit card data",
+                                          )..show(context);
+                                        } else {
+                                          List<String> expireCard =  expireNumberController.text.split("/");
+
+                                          setState(() {
+                                            isPaying = true;
+                                          });
+
+                                          String token = await PaymentServices.getToken(
+                                            cardNumber: cardNumberController.text,
+                                            expMonth: expireCard[0],
+                                            expYear: expireCard[1],
+                                            cvv: cvvNumberController.text,
+                                          );
+
+                                          ResponseHandler result = await PaymentServices.chargeCreditCard(
+                                            amount: widget.transaction.totalPrice,
+                                            tokenID: token,
+                                          );
+
+                                          if (result.data['transaction_status'] == "capture") {
+                                            runTransaction();
+                                          } else {
+                                            setState(() {
+                                              isPaying = false;
+                                            });
+
+                                            Flushbar(
+                                              duration: Duration(milliseconds: 1500),
+                                              flushbarPosition: FlushbarPosition.TOP,
+                                              backgroundColor: redColor,
+                                              message: result.data['status_message'],
+                                            )..show(context);
+                                          }
+                                        }
+                                      },
                                     ),
                                   ],
                                 ),

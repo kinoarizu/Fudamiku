@@ -11,3 +11,4 @@ part 'user_services.dart';
 part 'food_services.dart';
 part 'order_services.dart';
 part 'transaction_services.dart';
+part 'payment_services.dart';

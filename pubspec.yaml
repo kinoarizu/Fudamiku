@@ -39,6 +39,7 @@ dependencies:
   cached_network_image: ^2.2.0+1
   onesignal_flutter: ^2.6.0
   mask_text_input_formatter: ^1.0.7
+  url_launcher: ^5.5.0
 
 dev_dependencies:
   flutter_test:

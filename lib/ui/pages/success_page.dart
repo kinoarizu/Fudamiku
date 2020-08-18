@@ -52,7 +52,7 @@ class SuccessPage extends StatelessWidget {
                 height: 30,
               ),
               ButtonWidget(
-                (!isOrder) ? "Swipe Right" : "Order Other Foods",
+                (!isOrder) ? "Find Foods" : "Order Other Foods",
                 color: mainColor,
                 width: 200,
                 onPressed: () {

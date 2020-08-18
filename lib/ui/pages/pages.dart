@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:url_launcher/url_launcher.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:email_validator/email_validator.dart';
