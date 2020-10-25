@@ -8,7 +8,7 @@
 Fudamiku adalah aplikasi mobile (Android/IOS) yang digunakan untuk melakukan pemesanan menu dari jarak jauh di restoran Fudamiku Jakarta. Aplikasi ini dibuat menggunakan Framework Flutter dan Back-End API Laravel serta terintegrasi dengan payment gateway Midtrans (Credit Card / Gopay).
 
 ## Demo
-Get Fudamiku on PlayStore <a href="https://play.google.com/store/apps/details?id=com.abuazis.fudamiku">https://play.google.com/store/apps/details?id=com.abuazis.fudamiku</a>
+Get Fudamiku on PlayStore <a href="https://play.google.com/store/apps/details?id=com.abuaziz.fudamiku">https://play.google.com/store/apps/details?id=com.abuaziz.fudamiku</a>
 
 <p><img  src="https://i.ibb.co/WDmGB2Z/frame.png"/></p>
 
