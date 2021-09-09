@@ -5,7 +5,7 @@
 > Deliver Then Wait and Stay Home
 
 ## Description
-Fudamiku adalah aplikasi mobile (Android/IOS) yang digunakan untuk melakukan pemesanan menu dari jarak jauh di restoran Fudamiku Jakarta. Aplikasi ini dibuat menggunakan Framework Flutter dan Back-End API Laravel serta terintegrasi dengan payment gateway Midtrans (Credit Card / Gopay).
+Fudamiku adalah aplikasi mobile (Android/IOS) yang digunakan untuk melakukan pemesanan menu dari jarak jauh. Aplikasi ini dibuat menggunakan Framework Flutter dan Back-End API Laravel serta terintegrasi dengan payment gateway Midtrans (Credit Card / Gopay).
 
 ## Demo
 Get Fudamiku on PlayStore <a href="https://play.google.com/store/apps/details?id=com.abuaziz.fudamiku">https://play.google.com/store/apps/details?id=com.abuaziz.fudamiku</a>
