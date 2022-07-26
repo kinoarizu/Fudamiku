@@ -1,33 +1,40 @@
-# FudaMiku
-
-[![Fork](https://img.shields.io/github/forks/abuazis/Fudamiku?style=social)](https://github.com/abuazis/Fudamiku/fork)&nbsp; [![Star](https://img.shields.io/github/stars/abuazis/Fudamiku?style=social)](https://github.com/abuazis/Fudamiku/star)&nbsp; [![Watches](https://img.shields.io/github/watchers/abuazis/Fudamiku?style=social)](https://github.com/abuazis/Fudamiku/)&nbsp;
-
-> Deliver Then Wait and Stay Home
+# Fudamiku
 
 ## Description
-Fudamiku adalah aplikasi mobile (Android/IOS) yang digunakan untuk melakukan pemesanan menu dari jarak jauh. Aplikasi ini dibuat menggunakan Framework Flutter dan Back-End API Laravel serta terintegrasi dengan payment gateway Midtrans (Credit Card / Gopay).
 
-## Demo
-Get Fudamiku on PlayStore <a href="https://play.google.com/store/apps/details?id=com.abuaziz.fudamiku">https://play.google.com/store/apps/details?id=com.abuaziz.fudamiku</a>
+Flutter Recipe App Starter Kit that can help you develop a Recipe application much faster. You just need to add some adjustment to the frontend and you can create your own backend.
 
-<p><img  src="https://i.ibb.co/WDmGB2Z/frame.png"/></p>
+## Whats inside
 
-## Features
-
-- User Management (Login/Sign Up)
-- Informasi Makanan (Deskripsi & Bahan)
-- Riwayat/Status Pemesanan
-- Batalkan Pemesanan
-- Chekout Pemesanan
-- Metode Pembayaran (Credit Card & Gopay)
-
-## Techstack
-
-- Dart
-- Flutter SDK
-- Laravel
-- Midtrans
-- Pub Dev
+- Welcome Page
+- Bookmarks Page
+- Delicious Today Page
+- Explore Page
+- Full Screen Image Page
+- Home Page
+- Newly Posted Page
+- Page Switcher
+- Profile Page
+- Recipe Detail Page
+- Search Page
+--------
+- Login Modal
+- Register Modal
+- Search Filter Modal
+--------
+- Category Card Widget
+- Custom App Bar Widget
+- Custom Bottom Navigation Bar Widget
+- Custom Text Field Widget
+- Dummy Search Bar Widget
+- Featured Redipe Card Widget
+- Popular Recipe Card Widget
+- Recommendation Recipe Card Widget
+- Recipe Tile Widget
+- Review Tile Widget
+- Step Tile Widget
+- User Info Tile Widget
+- Ingridient Tile Widget
 
 ## Installing
 
@@ -42,7 +49,7 @@ Get Fudamiku on PlayStore <a href="https://play.google.com/store/apps/details?id
 
 ## Credit
 
-Abu Azis – [@abuzaio](https://instagram.com/abuzaio) – abuazis0204@gmail.ocm
+Abu Azis – [@abuzaio](https://instagram.com/abuzaio) – abuaziscorp@gmail.ocm
 
 Distributed under the MIT license. See `LICENSE` for more information.
 

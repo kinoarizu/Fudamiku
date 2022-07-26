@@ -5,12 +5,9 @@ buildscript {
     }
     dependencies {
         // ...
-        // OneSignal-Gradle-Plugin
-        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.6, 0.99.99]'
     }
 }
 
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin' 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
