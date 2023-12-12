@@ -38,7 +38,7 @@ Flutter Recipe App Starter Kit that can help you develop a Recipe application mu
 
 ## Installing
 
-- git clone https://github.com/abuazis/Fudamiku.git
+- git clone https://github.com/kinoarizu/Fudamiku.git
 - flutter packages get
 - flutter run
 
@@ -46,11 +46,3 @@ Flutter Recipe App Starter Kit that can help you develop a Recipe application mu
 
 - 1.0.0+1
   - CHANGE: APK release
-
-## Credit
-
-Abu Azis – [@abuzaio](https://instagram.com/abuzaio) – abuaziscorp@gmail.ocm
-
-Distributed under the MIT license. See `LICENSE` for more information.
-
-[https://github.com/abuazis](https://github.com/abuazis/)

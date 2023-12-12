@@ -1,4 +1,4 @@
-package com.abuaziz.fudamiku
+package com.kinoarizu.fudamiku
 
 import io.flutter.embedding.android.FlutterActivity
 
